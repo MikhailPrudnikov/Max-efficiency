@@ -312,10 +312,6 @@ app.post('/webhook', (req, res) => {
 });
 ```
 
-## 📝 Лицензия
-
-MIT
-
 ## 🔗 Полезные ссылки
 
 - [Max Bot API](https://core.Max.org/bots/api)
