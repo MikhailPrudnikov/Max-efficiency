@@ -322,9 +322,6 @@ docker-compose down -v
 docker system prune -a
 ```
 
-## 📝 Лицензия
-
-MIT
 
 ## 👥 Поддержка
 
