@@ -1,10 +1,10 @@
-# MAX Efficiency - Telegram Bot
+# MAX Efficiency - Max Bot
 
-Telegram бот для управления задачами с поддержкой AI-ассистента и голосового ввода.
+Max бот для управления задачами с поддержкой AI-ассистента и голосового ввода.
 
 ## 🎯 Описание
 
-Telegram бот предоставляет удобный интерфейс для управления задачами через мессенджер с дополнительными возможностями:
+Max бот предоставляет удобный интерфейс для управления задачами через мессенджер с дополнительными возможностями:
 
 - 📝 Создание и управление задачами
 - 🤖 AI-ассистент на базе GigaChat
@@ -59,8 +59,8 @@ npm start
 # База данных
 DATABASE_URL=postgresql://user:password@localhost:5432/maxflow
 
-# Telegram Bot
-BOT_TOKEN=your_telegram_bot_token
+# Max Bot
+BOT_TOKEN=your_Max_bot_token
 
 # GigaChat (опционально)
 GIGACHAT_CLIENT_ID=your_gigachat_client_id
@@ -73,7 +73,7 @@ SBER_SPEECH_CLIENT_SECRET=your_sber_speech_client_secret
 
 ### Получение токена бота
 
-1. Найдите [@BotFather](https://t.me/BotFather) в Telegram
+1. Найдите [@BotFather](https://t.me/BotFather) в Max
 2. Отправьте команду `/newbot`
 3. Следуйте инструкциям для создания бота
 4. Скопируйте полученный токен в `.env`
@@ -232,18 +232,18 @@ npm start
 
 ```bash
 # Отправить тестовое сообщение боту
-curl -X POST https://api.telegram.org/bot<TOKEN>/sendMessage \
+curl -X POST https://api.Max.org/bot<TOKEN>/sendMessage \
   -H "Content-Type: application/json" \
   -d '{"chat_id": "<CHAT_ID>", "text": "Test message"}'
 ```
 
 ## 🐛 Отладка
 
-### Проверка подключения к Telegram
+### Проверка подключения к Max
 
 ```bash
 # Проверить информацию о боте
-curl https://api.telegram.org/bot<TOKEN>/getMe
+curl https://api.Max.org/bot<TOKEN>/getMe
 ```
 
 ### Логирование
@@ -318,7 +318,7 @@ MIT
 
 ## 🔗 Полезные ссылки
 
-- [Telegram Bot API](https://core.telegram.org/bots/api)
+- [Max Bot API](https://core.Max.org/bots/api)
 - [MAX Bot API](https://developers.sber.ru/max)
 - [GigaChat API](https://developers.sber.ru/gigachat)
 - [Sber Speech API](https://developers.sber.ru/speech)
