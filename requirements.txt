@@ -1,0 +1,53 @@
+# Зависимости проекта MAX Efficiency
+
+## Фронтенд (React + Vite + TypeScript)
+# Основные зависимости указаны в package.json
+# Node.js версия: 20.x
+# npm версия: 10.x
+
+## Бэкенд (Express + PostgreSQL)
+# Основные зависимости указаны в server/package.json
+# Node.js версия: 20.x
+# PostgreSQL версия: 16.x
+
+## бот
+# Основные зависимости указаны в bot/package.json
+# Node.js версия: 20.x
+
+## Системные требования
+# Docker версия: 20.10+
+# Docker Compose версия: 2.0+
+# Минимум 2GB RAM
+# Минимум 5GB свободного места на диске
+
+## Основные npm пакеты
+
+### Фронтенд
+- react: ^18.3.1
+- react-dom: ^18.3.1
+- react-router-dom: ^6.30.1
+- vite: ^5.4.19
+- typescript: ^5.8.3
+- tailwindcss: ^3.4.17
+- @radix-ui/react-*: различные UI компоненты
+- recharts: ^2.15.4 (графики)
+- date-fns: ^3.6.0 (работа с датами)
+
+### Бэкенд
+- express: ^4.18.2
+- pg: ^8.11.3 (PostgreSQL клиент)
+- dotenv: ^16.3.1
+- cors: ^2.8.5
+- helmet: ^7.1.0 (безопасность)
+- jsonwebtoken: ^9.0.2 (JWT аутентификация)
+- typescript: ^5.3.3
+
+### бот
+- @maxhub/max-bot-api: ^0.2.1
+- axios: ^1.6.2
+- dotenv: ^17.2.3
+- pg: ^8.11.3
+- typescript: ^5.3.3
+
+## Переменные окружения
+# Смотрите .env.example для полного списка необходимых переменных окружения

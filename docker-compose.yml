@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  # База данных PostgreSQL
+  postgres:
+    image: postgres:16-alpine
+    container_name: maxflow-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-maxflow}
+      POSTGRES_USER: ${POSTGRES_USER:-maxflow}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-maxflow123}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-maxflow}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - maxflow-network
+
+  # Бэкенд сервер
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: maxflow-backend
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-maxflow}:${POSTGRES_PASSWORD:-maxflow123}@postgres:5432/${POSTGRES_DB:-maxflow}
+      JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-in-production}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost}
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - maxflow-network
+    restart: unless-stopped
+
+  # Telegram бот
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    container_name: maxflow-bot
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-maxflow}:${POSTGRES_PASSWORD:-maxflow123}@postgres:5432/${POSTGRES_DB:-maxflow}
+      BOT_TOKEN: ${BOT_TOKEN}
+      GIGACHAT_CLIENT_ID: ${GIGACHAT_CLIENT_ID}
+      GIGACHAT_CLIENT_SECRET: ${GIGACHAT_CLIENT_SECRET}
+      SBER_SPEECH_CLIENT_ID: ${SBER_SPEECH_CLIENT_ID}
+      SBER_SPEECH_CLIENT_SECRET: ${SBER_SPEECH_CLIENT_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    networks:
+      - maxflow-network
+    restart: unless-stopped
+
+  # Фронтенд
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: maxflow-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - maxflow-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  maxflow-network:
+    driver: bridge

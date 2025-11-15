@@ -1,0 +1,38 @@
+# Dockerfile для Telegram бота
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Копируем package.json и package-lock.json
+COPY bot/package*.json ./
+
+# Устанавливаем зависимости
+RUN npm ci
+
+# Копируем исходный код
+COPY bot/ ./
+
+# Собираем приложение
+RUN npm run build
+
+# Production образ
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Копируем package.json для production зависимостей
+COPY bot/package*.json ./
+
+# Устанавливаем только production зависимости
+RUN npm ci --only=production
+
+# Копируем собранное приложение
+COPY --from=builder /app/dist ./dist
+
+# Создаем непривилегированного пользователя
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+USER nodejs
+
+CMD ["node", "dist/bot.js"]
