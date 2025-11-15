@@ -325,7 +325,3 @@ SELECT * FROM migrations;
 \d users
 \d tasks
 ```
-
-## 📝 Лицензия
-
-MIT
